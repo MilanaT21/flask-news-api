@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Все новости{% endblock %}
+
+{% block content %}
+<h2>Все новости</h2>
+<div class="row">
+    {% for item in news %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.content[:200] }}</p>
+                <p class="text-muted"><small>Автор: {{ item.author.first_name }} {{ item.author.last_name }}</small></p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

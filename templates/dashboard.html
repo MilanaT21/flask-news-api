@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Мои новости{% endblock %}
+
+{% block content %}
+<h2>Мои новости</h2>
+<a href="{{ url_for('app.create_news') }}" class="btn btn-primary mb-3">Создать новость</a>
+
+{% for item in news %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.title }}</h5>
+    <p class="card-text">{{ item.content }}</p>
+    <a href="{{ url_for('app.edit_news', news_id=item.id) }}" class="btn btn-warning btn-sm">Редактировать</a>
+    <a href="{{ url_for('app.delete_news', news_id=item.id) }}" class="btn btn-danger btn-sm">Удалить</a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

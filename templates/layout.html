@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Flask Новости{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('app.index') }}">Главная</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('app.dashboard') }}">Личный кабинет</a>
+            <a href="{{ url_for('app.logout') }}">Выход</a>
+        {% else %}
+            <a href="{{ url_for('app.login') }}">Вход</a>
+            <a href="{{ url_for('app.register') }}">Регистрация</a>
+        {% endif %}
+    </nav>
+    <div class="content">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
