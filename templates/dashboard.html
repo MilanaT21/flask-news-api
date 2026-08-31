@@ -1,18 +1,64 @@
 {% extends 'base.html' %}
+
 {% block title %}Мои новости{% endblock %}
 
 {% block content %}
-<h2>Мои новости</h2>
-<a href="{{ url_for('app.create_news') }}" class="btn btn-primary mb-3">Создать новость</a>
 
-{% for item in news %}
-<div class="card mb-3">
-  <div class="card-body">
-    <h5 class="card-title">{{ item.title }}</h5>
-    <p class="card-text">{{ item.content }}</p>
-    <a href="{{ url_for('app.edit_news', news_id=item.id) }}" class="btn btn-warning btn-sm">Редактировать</a>
-    <a href="{{ url_for('app.delete_news', news_id=item.id) }}" class="btn btn-danger btn-sm">Удалить</a>
-  </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title mb-0">Мои новости</h2>
+
+    <a href="{{ url_for('app.create_news') }}"
+       class="btn btn-primary">
+        Создать новость
+    </a>
 </div>
-{% endfor %}
+
+{% if news %}
+
+    {% for item in news %}
+
+        <article class="card mb-3">
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    {{ item.title }}
+                </h5>
+
+                <p class="card-text">
+                    {{ item.content }}
+                </p>
+
+                <div class="d-flex gap-2">
+
+                    <a href="{{ url_for('app.edit_news', news_id=item.id) }}"
+                       class="btn btn-warning btn-sm">
+                        Редактировать
+                    </a>
+
+                    <form method="POST"
+                          action="{{ url_for('app.delete_news', news_id=item.id) }}"
+                          onsubmit="return confirm('Удалить эту новость?');">
+
+                        <button type="submit"
+                                class="btn btn-danger btn-sm">
+                            Удалить
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </article>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty-state">
+        <p class="mb-3">У вас пока нет новостей.</p>
+    </div>
+
+{% endif %}
+
 {% endblock %}
