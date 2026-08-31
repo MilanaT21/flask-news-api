@@ -2,8 +2,15 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-class Config:
-    SECRET_KEY = 'your-secret-key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'newsdb.db')  # Путь к файлу БД
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+class Config:
+    SECRET_KEY = os.environ.get(
+        'SECRET_KEY',
+        'dev-secret-key'
+    )
+
+    SQLALCHEMY_DATABASE_URI = (
+        'sqlite:///' + os.path.join(basedir, 'newsdb.db')
+    )
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
