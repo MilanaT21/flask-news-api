@@ -1,19 +1,44 @@
 {% extends 'base.html' %}
+
 {% block title %}Все новости{% endblock %}
 
 {% block content %}
-<h2>Все новости</h2>
-<div class="row">
-    {% for item in news %}
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">{{ item.content[:200] }}</p>
-                <p class="text-muted"><small>Автор: {{ item.author.first_name }} {{ item.author.last_name }}</small></p>
+
+<h2 class="page-title">Все новости</h2>
+
+{% if news %}
+
+    <div class="row g-4">
+        {% for item in news %}
+            <div class="col-md-6">
+                <article class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ item.title }}
+                        </h5>
+
+                        <p class="card-text">
+                            {{ item.content[:200] }}
+                            {% if item.content|length > 200 %}...{% endif %}
+                        </p>
+
+                        <p class="news-author mb-0">
+                            Автор:
+                            {{ item.author.first_name }}
+                            {{ item.author.last_name }}
+                        </p>
+                    </div>
+                </article>
             </div>
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+
+{% else %}
+
+    <div class="empty-state">
+        <p class="mb-0">Пока нет опубликованных новостей.</p>
+    </div>
+
+{% endif %}
+
 {% endblock %}
