@@ -1,17 +1,44 @@
 {% extends 'base.html' %}
+
 {% block title %}Новая новость{% endblock %}
 
 {% block content %}
-<h2>Создать новость</h2>
-<form method="POST">
-  <div class="mb-3">
-    <label class="form-label">Заголовок</label>
-    <input type="text" name="title" class="form-control" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Текст</label>
-    <textarea name="content" class="form-control" rows="6" required></textarea>
-  </div>
-  <button type="submit" class="btn btn-success">Сохранить</button>
-</form>
+
+<div class="form-container">
+
+    <h2>Создать новость</h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Заголовок</label>
+            <input type="text"
+                   name="title"
+                   class="form-control"
+                   maxlength="200"
+                   required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Текст</label>
+            <textarea name="content"
+                      class="form-control"
+                      rows="7"
+                      required></textarea>
+        </div>
+
+        <button type="submit"
+                class="btn btn-success">
+            Сохранить
+        </button>
+
+        <a href="{{ url_for('app.dashboard') }}"
+           class="btn btn-outline-secondary">
+            Отмена
+        </a>
+
+    </form>
+
+</div>
+
 {% endblock %}
